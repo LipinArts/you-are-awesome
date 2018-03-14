@@ -13,7 +13,18 @@ const createProtoMagicObject = () => {
 	object.prototype = object.__proto__;
 	return object;
 };
-const incrementor = () => {};
+
+let counter = 0;
+const incrementor = () => {
+	counter++;
+	incrementor.valueOf = function () {
+		return counter;
+	};
+	return incrementor;
+
+};
+
+
 const asyncIncrementor = () => {};
 const createIncrementer = () => {};
 
@@ -28,7 +39,11 @@ const createSerializedObject = () => {
 	return object;
 };
 const toBuffer = () => {};
-const sortByProto = () => {};
+const sortByProto = (arr) => {
+	return arr.sort(function (a, b) {
+		return a.__proto__ - b.__proto__;
+	});
+};
 
 exports.createEnumerableProperty = createEnumerableProperty;
 exports.createNotEnumerableProperty = createNotEnumerableProperty;
