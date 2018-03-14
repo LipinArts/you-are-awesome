@@ -8,7 +8,11 @@ const createEnumerableProperty = (propertyName) => {
 const createNotEnumerableProperty = () => {};
 
 
-const createProtoMagicObject = () => {};
+const createProtoMagicObject = () => {
+	const object = function () {};
+	object.prototype = object.__proto__;
+	return object;
+};
 const incrementor = () => {};
 const asyncIncrementor = () => {};
 const createIncrementer = () => {};
