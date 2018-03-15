@@ -1,15 +1,25 @@
 // DO WHATEVER YOU WANT HERE
 
-const createEnumerableProperty = (propertyName) => {
+const createEnumerableProperty = propertyName => {
 	return Object.defineProperty(this, propertyName, {
 		enumerable: true
 	});
 };
-const createNotEnumerableProperty = () => {};
-
+const createNotEnumerableProperty = propertyName => {
+	Object.defineProperty(Object.prototype, propertyName, {
+		enumerable: false,
+		get: function() {
+			return Object.prototype.newProperty;
+		},
+		set: function(a) {
+			return (Object.prototype.newProperty = a);
+		}
+	});
+	return propertyName;
+};
 
 const createProtoMagicObject = () => {
-	const object = function () {};
+	const object = function() {};
 	object.prototype = object.__proto__;
 	return object;
 };
@@ -17,13 +27,11 @@ const createProtoMagicObject = () => {
 let counter = 0;
 const incrementor = () => {
 	counter++;
-	incrementor.valueOf = function () {
+	incrementor.valueOf = function() {
 		return counter;
 	};
 	return incrementor;
-
 };
-
 
 const asyncIncrementor = () => {};
 const createIncrementer = () => {};
@@ -33,14 +41,14 @@ const returnBackInSecond = () => {};
 const getDeepPropertiesCount = () => {};
 const createSerializedObject = () => {
 	const object = new Object();
-	object.toJSON = function () {
+	object.toJSON = function() {
 		return this.toString();
 	};
 	return object;
 };
-const toBuffer = () => {};
-const sortByProto = (arr) => {
-	return arr.sort(function (a, b) {
+
+const sortByProto = arr => {
+	return arr.sort(function(a, b) {
 		return a.__proto__ - b.__proto__;
 	});
 };
